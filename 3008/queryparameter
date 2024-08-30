@@ -1,0 +1,18 @@
+//Task : find students who have age =22 or marks ==90.
+db.student.find({
+    $or: [
+      { age: 22 },
+      { marks: 90 }
+    ]
+  })
+//Task : find students who dont have age =22 or marks ==90.
+  db.student.find({
+    $nor: [
+      { age: 22 },
+      { marks: 90 }
+    ]
+  })
+  //Task : find students who dont have age =22 .
+  db.Student.find({
+    "age": { $not: { $eq: 22 } }
+});
