@@ -5,6 +5,18 @@ db.student.find({
       { marks: 90 }
     ]
   })
+
+// {
+//   _id: ObjectId('66d03a17dc1d3ee4990972a0'),
+//     name: 'Alice',
+//       age: 22,
+//         subject: 'Mathematics',
+//           marks: 90,
+//             grade: 'A++'
+// }
+
+
+
 //Task : find students who dont have age =22 or marks ==90.
   db.student.find({
     $nor: [
@@ -12,7 +24,211 @@ db.student.find({
       { marks: 90 }
     ]
   })
+
+  // [
+  //   {
+  //     _id: ObjectId('66d03a17dc1d3ee4990972a1'),
+  //     name: 'Bob',
+  //     age: 19,
+  //     subject: 'Physics',
+  //     marks: 85,
+  //     grade: 'A++'
+  //   },
+  //   {
+  //     _id: ObjectId('66d03a17dc1d3ee4990972a2'),
+  //     name: 'Charlie',
+  //     age: 18,
+  //     subject: 'Chemistry',
+  //     marks: 92,
+  //     grade: 'A++'
+  //   },
+  //   {
+  //     _id: ObjectId('66d03a17dc1d3ee4990972a3'),
+  //     name: 'Diana',
+  //     age: 23,
+  //     subject: 'Biology',
+  //     marks: 78
+  //   },
+  //   {
+  //     _id: ObjectId('66d03a17dc1d3ee4990972a4'),
+  //     name: 'Edward',
+  //     age: 20,
+  //     subject: 'Computer Science',
+  //     marks: 88,
+  //     grade: 'A++'
+  //   }
+  // ]
+
+  
   //Task : find students who dont have age =22 .
   db.Student.find({
     "age": { $not: { $eq: 22 } }
 });
+
+  //Task : find existing data of student of marks greater than 90
+db.student.find({
+ "marks": { $exists: true, $gte: 90 }
+             });
+
+// {
+//   _id: ObjectId('66d03a17dc1d3ee4990972a0'),
+//     name: 'Alice',
+//       age: 22,
+//         subject: 'Mathematics',
+//           marks: 90,
+//             grade: 'A++'
+// }
+// {
+//   _id: ObjectId('66d03a17dc1d3ee4990972a0'),
+//     name: 'Alice',
+//       age: 22,
+//         subject: 'Mathematics',
+//           marks: 90,
+//             grade: 'A++'
+// }
+
+//Task to find all elements with int 
+db.student.find({
+  marks: { $type: "int" }
+ })
+// [
+//   {
+//     _id: ObjectId('66d03a17dc1d3ee4990972a0'),
+//     name: 'Alice',
+//     age: 22,
+//     subject: 'Mathematics',
+//     marks: 90,
+//     grade: 'A++'
+//   },
+//   {
+//     _id: ObjectId('66d03a17dc1d3ee4990972a1'),
+//     name: 'Bob',
+//     age: 19,
+//     subject: 'Physics',
+//     marks: 85,
+//     grade: 'A++'
+//   },
+//   {
+//     _id: ObjectId('66d03a17dc1d3ee4990972a2'),
+//     name: 'Charlie',
+//     age: 18,
+//     subject: 'Chemistry',
+//     marks: 92,
+//     grade: 'A++'
+//   },
+//   {
+//     _id: ObjectId('66d03a17dc1d3ee4990972a3'),
+//     name: 'Diana',
+//     age: 23,
+//     subject: 'Biology',
+//     marks: 78
+//   },
+//   {
+//     _id: ObjectId('66d03a17dc1d3ee4990972a4'),
+//     name: 'Edward',
+//     age: 20,
+//     subject: 'Computer Science',
+//     marks: 88,
+//     grade: 'A++'
+//   }
+// ]
+
+//Task update operation
+db.student.updateOne(
+  { "name": "Bob" },
+  { $set: { "marks": 80 } }
+);
+
+// {
+//   acknowledged: true,
+//     insertedId: null,
+//       matchedCount: 1,
+//         modifiedCount: 1,
+//           upsertedCount: 0
+// }
+
+//Task update many operation
+
+db.student.updateMany(
+  { "name": "alice" },
+  { $set: { "marks": 90 } }
+);
+
+// {
+//   acknowledged: true,
+//     insertedId: null,
+//       matchedCount: 0,
+//         modifiedCount: 0,
+//           upsertedCount: 0
+// }
+
+//Task perfrom find one and update
+db.student.findOneAndUpdate(
+  { "name": "Bob" },
+  { $set: { "marks": 85 } }
+);
+
+// {
+//   _id: ObjectId('66d03a17dc1d3ee4990972a1'),
+//     name: 'Bob',
+//       age: 19,
+//         subject: 'Physics',
+//           marks: 85,
+//             grade: 'A++'
+// }
+
+
+//Task replace one operation
+
+db.student.replaceOne({ "name": "Alice" }, /* filter*/ { /* replacement*/ "name": "Alice", "age": 23, "subject": "Physics", "marks": 95 });
+
+// {
+//   acknowledged: true,
+//     insertedId: null,
+//       matchedCount: 1,
+//         modifiedCount: 1,
+//           upsertedCount: 0
+// }
+
+
+
+
+
+
+
+
+//Task delete one perform
+db.sample.deleteOne(
+  { "name": "Alice" })
+
+// {
+//   acknowledged: true,
+//     deletedCount: 1
+// }
+
+
+
+
+
+
+// Task delete many perform
+
+db.sample.deleteMany(
+  { "name": "Bob" })
+
+// {
+//   acknowledged: true,
+//     deletedCount: 1
+// }
+
+//Task find one and delete perform 
+
+db.sample.findOneAndDelete(
+  { "name": "Charlie" })
+// {
+//   _id: ObjectId('66d1925eb550e3752229ec0d'),
+//     name: 'Charlie',
+//       age: 18,
+//         subject: 'Chemistry',
+//           marks: 92
+// }
